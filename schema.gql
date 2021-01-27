@@ -1,0 +1,103 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type GraphProdGroupDto {
+  _id: ID!
+  title: String!
+  members: [GraphProductDto!]!
+}
+
+type GraphProductDto {
+  _id: ID!
+  title: String!
+  groups: [GraphProdGroupDto!]!
+}
+
+type GroupDto {
+  id: Float!
+  name: String!
+  members: [UserDto!]
+}
+
+type UserDto {
+  id: Float!
+  firstName: String!
+  lastName: String!
+  groups: [GroupDto!]
+  friends: [UserDto!]
+}
+
+type Query {
+  product(id: String!): GraphProductDto!
+  products: [GraphProductDto!]!
+  user(id: Float!): UserDto!
+  users: [UserDto!]!
+  group(id: String!): GroupDto!
+  groups: [GroupDto!]!
+  prodGroup(id: String!): GraphProdGroupDto!
+  productGroups: [GraphProdGroupDto!]!
+}
+
+type Mutation {
+  createProduct(input: ProductInput!): GraphProductDto!
+  updateProduct(input: UpdateProductInput!, id: String!): GraphProductDto!
+  removeProduct(id: String!): GraphProductDto!
+  createUser(input: UsersInput!): UserDto!
+  updateUser(input: UpdateUserInput!, id: Float!): UserDto!
+  removeUser(id: Float!): UserDto!
+  createGroup(input: GroupInput!): GroupDto!
+  updateGroup(input: UpdateGroupInput!, id: String!): GroupDto!
+  removeGroup(id: String!): GroupDto!
+  createProductGroup(input: ProdgroupInput!): GraphProdGroupDto!
+  updateProductGroup(input: UpdateProdgroupInput!, id: String!): GraphProdGroupDto!
+  removeProductGroup(id: String!): GraphProdGroupDto!
+}
+
+input ProductInput {
+  title: String!
+  groups: [String!]
+}
+
+input UpdateProductInput {
+  title: String
+  groups: [String!]
+}
+
+input UsersInput {
+  id: [Int!]
+  firstName: String!
+  lastName: String!
+  groups: [Int!]
+  friends: [Int!]
+}
+
+input UpdateUserInput {
+  id: [Int!]
+  firstName: String
+  lastName: String
+  groups: [Int!]
+  friends: [Int!]
+}
+
+input GroupInput {
+  id: [Int!]
+  name: String!
+  members: [Int!]
+}
+
+input UpdateGroupInput {
+  id: [Int!]
+  name: String
+  members: [Int!]
+}
+
+input ProdgroupInput {
+  title: String!
+  members: [String!]
+}
+
+input UpdateProdgroupInput {
+  title: String
+  members: [String!]
+}
