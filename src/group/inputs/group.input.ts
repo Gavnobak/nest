@@ -1,13 +1,15 @@
-import {Field, ID, InputType, Int, PartialType,} from "@nestjs/graphql";
+import {Field, InputType, Int, PartialType,} from "@nestjs/graphql";
+import {IsArray, IsNumber, IsOptional, IsString} from "class-validator";
 
 @InputType()
 export class GroupInput {
-    @Field(() => [Int],{nullable: true})
-    readonly id: number;
-
+    @IsString()
     @Field()
     readonly name: string;
 
+    @IsOptional()
+    @IsArray()
+    @IsNumber({}, { each: true })
     @Field(() => [Int],{nullable: true})
     readonly members: number[]
 }

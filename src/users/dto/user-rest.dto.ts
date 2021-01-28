@@ -1,4 +1,4 @@
-import {IsArray, IsOptional, IsString} from "class-validator";
+import {IsArray, IsNumber, IsOptional, IsString} from "class-validator";
 
 export class UserRestDto {
 
@@ -12,9 +12,32 @@ export class UserRestDto {
 
     @IsOptional()
     @IsArray()
-    readonly groups: any[]
+    @IsNumber({}, { each: true })
+    readonly groups: number[]
 
     @IsOptional()
     @IsArray()
-    readonly friends: any[]
+    @IsNumber({}, { each: true })
+    readonly friends: number[]
+}
+
+export class UpdateUserRestDto {
+
+    @IsOptional()
+    @IsString()
+    readonly firstName: string;
+
+    @IsOptional()
+    @IsString()
+    readonly lastName: string;
+
+    @IsOptional()
+    @IsArray()
+    @IsNumber({}, { each: true })
+    readonly groups: number[]
+
+    @IsOptional()
+    @IsArray()
+    @IsNumber({}, { each: true })
+    readonly friends: number[]
 }

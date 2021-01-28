@@ -1,8 +1,9 @@
-import {Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from "typeorm";
 import {Group} from "../../group/entities/group.entity";
 
 @Entity()
 export class User {
+
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -15,7 +16,7 @@ export class User {
     @Column({ default: true })
     isActive: boolean;
 
-    @ManyToMany(() => Group,)
+    @ManyToMany(() => Group,{nullable:true})
     @JoinTable({name:"user_groups_group"})
     groups: Group[];
 

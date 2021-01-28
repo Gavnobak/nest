@@ -1,6 +1,6 @@
-import {Controller, Get, Post, Body, Put, Param, Delete, UsePipes, ParseIntPipe, ValidationPipe} from '@nestjs/common';
+import {Controller, Get, Post, Body, Put, Param, Delete, ParseIntPipe} from '@nestjs/common';
 import { UsersService } from './users.service';
-import { UserRestDto } from './dto/user-rest.dto';
+import {UpdateUserRestDto, UserRestDto} from './dto/user-rest.dto';
 import {User} from "./entities/user.entity";
 
 @Controller('users')
@@ -24,7 +24,7 @@ export class UsersController {
 
   @Put(':id')
   update(@Param('id',ParseIntPipe) id: string,
-         @Body(new ValidationPipe()) updateUserDto: Partial<UserRestDto>): Promise<User> {
+         @Body() updateUserDto: UpdateUserRestDto): Promise<User> {
     return this.usersService.update(+id, updateUserDto);
   }
 
