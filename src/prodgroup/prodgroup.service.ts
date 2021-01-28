@@ -20,7 +20,6 @@ export class ProdgroupService {
       await this.productModel.updateMany(
          {_id:{$in:save.members}},
         {$push: {groups: ObjectId(save._id)}});
-      return this.prodgroupModel.findById(save._id).populate("members",['title']).exec()
     }
     return this.prodgroupModel.findById(save._id).populate("members",['title']).exec()
   }
@@ -29,7 +28,7 @@ export class ProdgroupService {
     return this.prodgroupModel.find().populate("members",['title']).exec()
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return this.prodgroupModel.findById(id).populate("members",['title']).exec()
   }
 
@@ -62,20 +61,19 @@ export class ProdgroupService {
       )}
       if (arrQuery.length){
         await this.productModel.bulkWrite(arrQuery);
-        return this.prodgroupModel.findById(id).populate("members",['title']).exec()
       }
-    } else return this.prodgroupModel.findById(id).populate("members",['title']).exec()
+    }
+    return this.prodgroupModel.findById(id).populate("members",['title']).exec()
 
   }
 
-  async remove(id: string): Promise<ProdGroup> {
+  async remove(id: string){
     const remove = await this.prodgroupModel.findByIdAndRemove(id, {useFindAndModify: false});
     if (remove.members && remove.members.length){
       await this.productModel.updateMany(
           {_id:{$in:remove.members}},
           {$pull: {group: ObjectId(id)}});
-      return remove
     }
-    return remove
+    return {removed:true}
   }
 }

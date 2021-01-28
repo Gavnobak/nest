@@ -10,7 +10,7 @@ export class ProductGroupResolver {
 
     @Query(() => GraphProdGroupDto)
     async prodGroup(@Args("id") id:string) {
-        return this.prodgroupService.findOne(+id);
+        return this.prodgroupService.findOne(id);
     }
 
     @Query(() => [GraphProdGroupDto])

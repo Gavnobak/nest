@@ -34,15 +34,14 @@ export class ProductsService {
         return this.productModel.findById(save._id).populate("groups",['title']).exec()
     }
 
-    async remove(id: string): Promise<Product> {
+    async remove(id: string) {
         const remove = await this.productModel.findByIdAndRemove(id, {useFindAndModify: false});
         if (remove.groups && remove.groups.length){
             await this.prodgroupModel.updateMany(
                 {_id:{$in:remove.groups}},
                 {$pull: {members: ObjectId(id)}});
-            return remove
         }
-        return remove
+        return {deleted:true}
     }
 s
     async update(id: string, productDto: any): Promise<any> {
@@ -75,9 +74,9 @@ s
             )}
             if (arrQuery.length){
                 await this.prodgroupModel.bulkWrite(arrQuery);
-                return this.productModel.findById(id).populate("groups",['title']).exec()
             }
-        } else return this.productModel.findById(id).populate("groups",['title']).exec()
+        }
+        return await this.productModel.findById(id).populate("groups",['title']).exec()
 
     }
 }

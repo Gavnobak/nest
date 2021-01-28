@@ -6,5 +6,17 @@ export class CreateProdgroupDto {
 
     @IsOptional()
     @IsArray()
-    readonly members: any[];
+    @IsString({each:true})
+    readonly members: string[];
+}
+
+export class UpdateProdgroupDto {
+    @IsOptional()
+    @IsString()
+    readonly title: string;
+
+    @IsOptional()
+    @IsArray()
+    @IsString({each:true})
+    readonly members: string[];
 }
